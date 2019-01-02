@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']">Deating App</a>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse" >
+      <ul class="navbar-nav mr-auto" *ngIf="authService.loggedin()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/members']">Matches
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/lists']"  >Lists</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link " [routerLink]="['/messages']">Messages</a>
+        </li>
+      </ul>
+
+
+      <ul class="navbar-nav mr-sm-2" dropdown *ngIf="authService.loggedin()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  dropdownToggle href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Welcome {{authService.decodedToken.unique_name | titlecase}}
+          </a>
+          <div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown" *dropdownMenu>
+            <a class="dropdown-item" href="javascript:;" (click)="fale">
+              <i class="fa fa-user"></i> Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:;" (click)="logout()">
+              <i class="fa fa-sign-out"></i> Logout</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav mr-sm-2">
+          <li class="nav-item ">
+      <form #loginForm="ngForm" class="form-inline" (ngSubmit)="login()" *ngIf="!authService.loggedin()">
+        <input class="form-control mr-sm-2" type="text" name="user.username" required [(ngModel)]="user.username" placeholder="Username"
+          aria-label="Username">
+        <input class="form-control mr-sm-2" type="password" name="user.password" required [(ngModel)]="user.password" placeholder="Password"
+          aria-label="Password">
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Login</button>
+      </form>
+      </li>
+    </ul>
+
+    </div>
+    
+  </div>
+
+</nav>

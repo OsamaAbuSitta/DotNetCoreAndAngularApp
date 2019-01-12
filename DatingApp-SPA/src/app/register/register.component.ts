@@ -1,6 +1,6 @@
 import { Component, OnInit,Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { AlertifyService } from '../../services/alertify.service';
+import { AuthService } from '../../app/_services/auth.service';
+import { AlertifyService } from '../../app/_services/alertify.service';
 
 @Component({
   selector: 'app-register',

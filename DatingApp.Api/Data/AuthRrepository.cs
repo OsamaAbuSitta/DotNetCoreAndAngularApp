@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DatingApp.Api.Helper;
 using DatingApp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace DatingApp.Api.Data
 
         public async Task<User> Login(string username, string password)
         {
-            User user = await _dataContext.Users.FirstOrDefaultAsync(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+            User user = await _dataContext.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
             if (user == null) return null;
 
@@ -36,7 +37,7 @@ namespace DatingApp.Api.Data
 
         public async Task<User> Register(User user, string password)
         {
-            var passwordHash = CreatePasswordHash(password);
+            var passwordHash = Hashing.CreatePasswordHash(password);
             user.PasswordHash = passwordHash.passwordHash;
             user.PasswordSalt = passwordHash.passwordSalt;
 
@@ -44,17 +45,6 @@ namespace DatingApp.Api.Data
             await _dataContext.SaveChangesAsync();
             return user;
         }
-
-        private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                byte[] passwordSalt = hmac.Key;
-                byte[] passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return (passwordHash, passwordSalt);
-            }
-        }
-
         public async Task<bool> UserExists(string username)
         {
             return await _dataContext.Users.AnyAsync(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));

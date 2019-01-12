@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DatingApp.Api.Dtos.Tofix
+namespace DatingApp.Api.Dtos
 {
     public class UserForRegisterDto
     {
@@ -8,7 +8,7 @@ namespace DatingApp.Api.Dtos.Tofix
         public string Username { get; set; }
 
         [Required]
-        [StringLength(30,MinimumLength = 6,ErrorMessage="You must spacify password between 6 and 30 charachters ")]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "You must specify a password between 4 and 8 characters")]
         public string Password { get; set; }
     }
 }

@@ -20,13 +20,18 @@
 
 
       <ul class="navbar-nav mr-sm-2" dropdown *ngIf="authService.loggedin()">
+          <li class="nav-item dropdown">   <span class="mr-1">
+              <img src="{{photoUrl}}" alt="">
+            </span>
+            </li>
         <li class="nav-item dropdown">
+        
           <a class="nav-link dropdown-toggle"  dropdownToggle href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             Welcome {{authService.decodedToken.unique_name | titlecase}}
           </a>
           <div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown" *dropdownMenu>
-            <a class="dropdown-item" href="javascript:;" (click)="fale">
+            <a class="dropdown-item" href="javascript:;" (click)="fale" [routerLink]="['/member/edit']">
               <i class="fa fa-user"></i> Edit Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="javascript:;" (click)="logout()">

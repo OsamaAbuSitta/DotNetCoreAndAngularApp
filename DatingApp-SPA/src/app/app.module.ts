@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { BsDropdownModule, TabsModule,BsDatepickerModule } from 'ngx-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -31,6 +31,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { FileUploadModule } from 'ng2-file-upload';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -48,7 +49,8 @@ export function tokenGetter() {
         MemberCardComponent,
         MemberDetailComponent,
         MemberEditComponent,
-        PhotoEditorComponent
+        PhotoEditorComponent,
+        TimeAgoPipe
     ],
     imports: [
         BrowserModule,
@@ -65,7 +67,9 @@ export function tokenGetter() {
                 blacklistedRoutes: [environment.apiDomain + '/api/auth/']
             }
         }),
-        FileUploadModule
+        FileUploadModule,
+        ReactiveFormsModule,
+        BsDatepickerModule.forRoot(),
     ],
     providers: [
         AuthService,

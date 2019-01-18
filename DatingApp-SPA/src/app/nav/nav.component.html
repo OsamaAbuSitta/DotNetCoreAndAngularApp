@@ -21,7 +21,7 @@
 
       <ul class="navbar-nav mr-sm-2" dropdown *ngIf="authService.loggedin()">
           <li class="nav-item dropdown">   <span class="mr-1">
-              <img src="{{photoUrl}}" alt="">
+              <img src="{{photoUrl || '../../assets/user.png'}}" alt="">
             </span>
             </li>
         <li class="nav-item dropdown">

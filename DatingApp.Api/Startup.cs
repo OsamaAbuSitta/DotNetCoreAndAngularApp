@@ -58,6 +58,7 @@ namespace DatingApp.Api
                     };
                 });
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +86,7 @@ namespace DatingApp.Api
                 //    app.UseHsts();
             }
 
-            //seeder.SeedUserData();
+           // seeder.SeedUserData();
             // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();

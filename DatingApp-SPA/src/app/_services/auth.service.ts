@@ -38,8 +38,8 @@ export class AuthService {
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register',user);
   }
 
   loggedin(): boolean {
@@ -65,7 +65,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
     this.router.navigate(['/home']);
   }
 }

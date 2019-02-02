@@ -1,6 +1,6 @@
 using System;
 
-namespace DatingApp.Api.Models
+namespace DatingApp.API.Models
 {
     public class Photo
     {
@@ -9,8 +9,9 @@ namespace DatingApp.Api.Models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
+        public string PublicId { get; set; }
+        public bool IsApproved { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
-        public string PublicId { get; set; }
     }
 }

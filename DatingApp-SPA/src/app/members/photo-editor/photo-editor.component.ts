@@ -41,8 +41,8 @@ export class PhotoEditorComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false };
-    this.uploader.onBeforeUploadItem  = (file) => { file.withCredentials = false };
+    this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: Photo = JSON.parse(response);
@@ -51,13 +51,14 @@ export class PhotoEditorComponent implements OnInit {
           url: res.url,
           dateAdded: res.dateAdded,
           description: res.description,
-          isMain: res.isMain
+          isMain: res.isMain,
+          isApproved: res.isApproved
         };
         this.photos.push(photo);
-        if(photo.isMain){
+        if (photo.isMain) {
           this.authService.changeMemberPhoto(photo.url);
           this.authService.currentUser.photoUrl = photo.url;
-          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));   
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
         }
       }
     };
